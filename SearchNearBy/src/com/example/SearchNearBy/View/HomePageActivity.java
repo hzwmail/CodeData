@@ -16,12 +16,12 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.BMapManager;
 import com.baidu.platform.comapi.basestruct.GeoPoint;
+import com.example.SearchNearBy.Model.Loction;
 import com.example.SearchNearBy.R;
 
 import java.util.*;
 
 public class HomePageActivity extends Activity {
-    private BMapManager bMapManager;
     private ListView homepage;
     private ArrayList<HashMap<String, ?>> data = new ArrayList<HashMap<String, ?>>();
     private AlertDialog loginDialog;
@@ -31,7 +31,7 @@ public class HomePageActivity extends Activity {
     private TextView textposition;
     private LocationClient locationClient = null;
     public static final String strKey = "FDf086c89f2517c9a9ef5c4eb53a7397";
-
+    public static   Loction loction = new Loction();
     /**
      * Called when the activity is first created.
      */
@@ -50,7 +50,7 @@ public class HomePageActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.setClass(HomePageActivity.this, SearchActivity.class);
+                intent.setClass(HomePageActivity.this, SearchFor.class);
                 startActivity(intent);
             }
         });
@@ -273,17 +273,22 @@ public class HomePageActivity extends Activity {
         locationClient.registerLocationListener(new BDLocationListener() {
             @Override
             public void onReceiveLocation(BDLocation bdLocation) {
-                Log.d("BaiduMapDemo", "onReceiveLocation address " + bdLocation.getAddrStr());
-                Log.d("BaiduMapDemo", "onReceiveLocation Latitude " + bdLocation.getLatitude());
-                Log.d("BaiduMapDemo", "onReceiveLocation Longitude " + bdLocation.getLongitude());
+//                Log.d("BaiduMapDemo", "onReceiveLocation address " + bdLocation.getAddrStr());
+//                Log.d("BaiduMapDemo", "onReceiveLocation Latitude " + bdLocation.getLatitude());
+//                Log.d("BaiduMapDemo", "onReceiveLocation Longitude " + bdLocation.getLongitude());
 
                 double lng = bdLocation.getLongitude();
                 double lat = bdLocation.getLatitude();
+
+                loction.setX(lng+"");
+                loction.setY(lat+"");
+
                 StringBuffer  sb = new StringBuffer(256);
 
                 sb.append(bdLocation.getAddrStr());
                 GeoPoint point = new GeoPoint((int) (lng * 1E6), (int) (lat * 1E6));
                 textposition.setText(sb.toString());
+                loction.setAddress(sb.toString());
 
 
             }

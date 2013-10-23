@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.*;
-import com.example.SearchNearBy.Model.Loction;
 import com.example.SearchNearBy.R;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -22,6 +21,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,81 +29,57 @@ import java.util.Map;
 /**
  * Created with IntelliJ IDEA.
  * User: Admin
- * Date: 13-10-18
- * Time: 上午8:46
+ * Date: 13-10-22
+ * Time: 下午1:27
  * To change this template use File | Settings | File Templates.
  */
-public class MessageActivity extends Activity {
-    private  String poiHttp = "https://api.weibo.com/2/location/pois/search/by_geo.json";
-
+public class SearchFor extends Activity {
     private static final String TAG = "SearchNearBy";
-    private ImageButton informationBack;
-    private TextView information;
-    private String[] objects = new String[]{"范围:1000M内", "范围:2000M内", "范围:3000M内"};
-    private Spinner range;
+    private ListView searchfor;
+    private  String poiHttp = "https://api.weibo.com/2/location/pois/search/by_geo.json";
+    private ImageButton searchBack;
+
     private static final int SUCCESS = 0;
     private static final int ERROR_SERVER = 1;
     private static final int ERROR_DATA_FORMAT = 2;
-    private ArrayList<HashMap<String, ?>> data = new ArrayList<HashMap<String, ?>>();
+    private ArrayList<HashMap<String, ?>> data;
     private  String X = String.valueOf(108.908035);
     private  String Y = String.valueOf(34.238404);
+    private EditText searchedittext;
+    private ImageButton search2Button;
+    private String name;
 
-//    private  String X = HomePageActivity.loction.getX();
-//    private  String Y =HomePageActivity.loction.getY();
-    private ListView positionmessage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);    //To change body of overridden methods use File | Settings | File Templates.
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.positioninformation);
-        positionmessage = (ListView) findViewById(R.id.positionmessage);
-        information = (TextView) findViewById(R.id.information);
-        informationBack = (ImageButton) findViewById(R.id.informationBack);
+        setContentView(R.layout.search);
+        searchfor= (ListView) findViewById(R.id.searchfor);
+        searchedittext= (EditText) findViewById(R.id.searchedittext);
+        searchBack = (ImageButton) findViewById(R.id.searchBack);
 
+        search2Button = (ImageButton) findViewById(R.id.search2Button);
+        searchBack.setOnClickListener(new View.OnClickListener() {
 
-
-
-        informationBack.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        Intent intent=getIntent();
-        String tittle3 =intent.getStringExtra("chName");
-        information.setText(tittle3);
-        range = (Spinner) findViewById(R.id.range);
-
-
-        range.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        search2Button.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int position, long id) {
-//                Object item = parent.getAdapter().getItem(position);
-                String item = objects[position];
-
-                setTitle( item.toString());
-
-                Log.d("Spinner", "onItemSelected");
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-                Log.d("Spinner", "onNothingSelected");
-
+            public void onClick(View v) {
+                try {
+                    data = new ArrayList<HashMap<String, ?>>();
+                    loading();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                }
             }
         });
-        loading();
-        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item, objects);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        range.setAdapter(adapter);
-
     }
-
-
     private void poilist(){
+
 
 
         BaseAdapter baseAdapter = new BaseAdapter() {
@@ -129,7 +105,7 @@ public class MessageActivity extends Activity {
                     convertView = layoutInflater.inflate(R.layout.messageposition, parent, false);
                 }
                 Map<String, Object> itemData = (Map<String, Object>) data.get(position);
-                Log.d(TAG,"jo1"+ itemData);
+                Log.d(TAG, "jo1" + itemData);
                 TextView indetail = (TextView) convertView.findViewById(R.id.indetail);
                 indetail.setText(itemData.get("name").toString());
                 TextView message = (TextView) convertView.findViewById(R.id.message);
@@ -141,25 +117,16 @@ public class MessageActivity extends Activity {
             }
         };
 
-        positionmessage.setAdapter(baseAdapter);
-        positionmessage.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent();
-
-                intent.setClass(MessageActivity.this, MapActivity.class);
-
-                startActivity(intent);
-            }
-        });
+        searchfor.setAdapter(baseAdapter);
+        baseAdapter.notifyDataSetChanged();
 
     }
 
 
-    private void loading() {
-        Intent intent =getIntent();
-        String str= intent.getStringExtra("chName");
-        final String name = str.trim() ;
+    private void loading() throws UnsupportedEncodingException {
+        name=java.net.URLEncoder.encode(searchedittext.getText().toString(),"utf-8");
+
+
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("加载中...");
 
@@ -172,6 +139,7 @@ public class MessageActivity extends Activity {
                 try {
 
                     String url = poiHttp + "?coordinate=" + X+","+Y + "&q=" + name +"&count=20"+ "&access_token=2.00_HPptBIIxwdDe6f284b2560IPcOG";
+
 
                     Log.d(TAG, "Request server data " + url);
 
@@ -231,7 +199,7 @@ public class MessageActivity extends Activity {
                 progressDialog.dismiss();
                 if (result == SUCCESS) {
                     //跳转到展示界面
-                   poilist();
+                    poilist();
 
                 } else if (result == ERROR_SERVER) {
                     showServerErrorMessage();
@@ -262,6 +230,5 @@ public class MessageActivity extends Activity {
 
         return resultStr;
     }
-
 
 }

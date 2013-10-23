@@ -15,13 +15,13 @@
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:textColor="#000000"
-                  android:text="100M"
+
                   android:layout_marginLeft="15dp"></TextView>
         <TextView android:id="@+id/message"
 
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="100M"
+
 
                   android:layout_marginLeft="15dp"></TextView>
                   </LinearLayout>
@@ -31,7 +31,7 @@
 
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-               android:text="100M"
+
                android:textColor="#000000"
 
               ></TextView>

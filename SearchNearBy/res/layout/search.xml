@@ -12,17 +12,22 @@
                      android:layout_width="wrap_content"
                      android:background="@drawable/ic_nav_back"
                      android:layout_marginLeft="10dp"></ImageButton>
-        <EditText android:layout_height="wrap_content"
+        <EditText android:id="@+id/searchedittext" android:layout_height="wrap_content"
                   android:layout_width="match_parent"
-                  android:text="搜周边"
+                  android:text="中餐厅"
                   android:layout_weight="1"
                   android:textColor="#ffffff"
                  android:layout_marginLeft="20dp"
                  android:layout_marginRight="10dp"
                 android:background="@drawable/abs__textfield_search_selected_holo_dark"></EditText>
-        <ImageButton android:id="@+id/search2Button" android:layout_height="wrap_content"
+        <ImageButton android:id="@+id/search2Button"
+                     android:layout_height="wrap_content"
                      android:layout_width="wrap_content"
                      android:background="@drawable/abs__ic_search"
                      android:layout_marginRight="10dp"></ImageButton>
     </LinearLayout>
+    <ListView android:id="@+id/searchfor"
+              android:layout_height="wrap_content"
+              android:layout_width="match_parent"
+              android:layout_weight="1"></ListView>
 </LinearLayout>

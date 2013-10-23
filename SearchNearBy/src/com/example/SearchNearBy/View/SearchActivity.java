@@ -29,20 +29,15 @@ public class SearchActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.search);
 
-        searchBack = (ImageButton) findViewById(R.id.searchBack);
+
 
         search2Button = (ImageButton) findViewById(R.id.search2Button);
 
-        searchBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();;
-            }
-        });
+
         search2Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                buttonOnClick(v);
+
             }
         });
     }

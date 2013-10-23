@@ -2,19 +2,28 @@ package com.example.SearchNearBy.View;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.*;
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
+import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.example.SearchNearBy.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Created with IntelliJ IDEA.
@@ -24,11 +33,13 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 public class FoodActivity extends Activity {
+
     private ListView chineseserve;
     private ArrayList<HashMap<String, ?>> data = new ArrayList<HashMap<String, ?>>();
     private AlertDialog loginDialog;
     private ImageButton chineseBack;
     private TextView threeName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +48,7 @@ public class FoodActivity extends Activity {
         setContentView(R.layout.chineserestaurant);
         chineseserve = (ListView) findViewById(R.id.chineseserve);
         chineseBack = (ImageButton) findViewById(R.id.chineseBack);
+
         threeName = (TextView) findViewById(R.id.threeName);
 
         chineserestaures();
@@ -154,8 +166,9 @@ public class FoodActivity extends Activity {
                     convertView = layoutInflater.inflate(R.layout.zhongcan, parent, false);
                 }
                 Map<String, Object> itemData = (Map<String, Object>) data.get(position);
-                TextView chName = (TextView) convertView.findViewById(R.id.chName);
+                TextView chName; chName = (TextView) convertView.findViewById(R.id.chName);
                 chName.setText(itemData.get("chName").toString());
+
                 return convertView;
             }
         };
@@ -164,17 +177,21 @@ public class FoodActivity extends Activity {
         chineseserve.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                     TextView textView = (TextView) view.findViewById(R.id.chName);
+
 
                      Intent intent = new Intent();
-                        intent.setClass(FoodActivity.this, MessageActivity.class);
 
+                        intent.setClass(FoodActivity.this, MessageActivity.class);
+                        intent.putExtra("chName",textView.getText().toString());
                         startActivity(intent);
 
 
-
-                }
+            }
 
 
         });
     }
+
+
 }

@@ -3,7 +3,7 @@
           package="com.example.SearchNearBy"
           android:versionCode="1"
           android:versionName="1.0">
-    <uses-sdk android:minSdkVersion="18"/>
+    <uses-sdk android:minSdkVersion="10"/>
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
     <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
@@ -64,7 +64,9 @@
         <activity android:name=".View.SettingsActivity"/>
         <activity android:name=".View.FoodActivity"/>
         <activity android:name=".View.MessageActivity"/>
-        <activity android:name=".View.SearchActivity"/>
+        <activity android:name=".View.SearchFor"/>
+        <activity android:name=".View.MapActivity"/>
+
 
         <service
                 android:name="com.baidu.location.f"
