@@ -8,6 +8,7 @@ package com.example.SearchNearBy.Model;
  * To change this template use File | Settings | File Templates.
  */
 public class Loction {
+    private String name;
     private String  x;
     private String  y;
     private String address;

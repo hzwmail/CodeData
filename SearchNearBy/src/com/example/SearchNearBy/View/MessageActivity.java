@@ -145,10 +145,13 @@ public class MessageActivity extends Activity {
         positionmessage.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Map<String, Object> itemData1 = (Map<String, Object>) data.get(position);
                 Intent intent = new Intent();
 
                 intent.setClass(MessageActivity.this, MapActivity.class);
-
+                intent.putExtra("address",itemData1.get("address").toString());
+                intent.putExtra("x",itemData1.get("x").toString());
+                intent.putExtra("y",itemData1.get("y").toString());
                 startActivity(intent);
             }
         });
@@ -185,11 +188,13 @@ public class MessageActivity extends Activity {
                     Log.d(TAG,"jo"+ ja);
                     for (int i=0;i<ja.length();i++){
                         HashMap<String, Object> item = new HashMap<String, Object>();
-                        JSONObject  jo=  ja.getJSONObject(i);
+                        JSONObject  jo=  ja.optJSONObject(i);
 
-                        item.put("address", jo.getString("address"));
-                        item.put("name", jo.getString("name"));
-                        item.put("distance", jo.getString("distance")+"m");
+                        item.put("address", jo.optString("address"));
+                        item.put("name", jo.optString("name"));
+                        item.put("distance", jo.optString("distance")+"m");
+                        item.put("x",jo.opt("x"));
+                        item.put("y",jo.opt("y"));
                         data.add(item);
 
                     }

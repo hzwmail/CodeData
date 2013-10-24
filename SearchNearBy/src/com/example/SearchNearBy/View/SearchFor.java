@@ -45,6 +45,7 @@ public class SearchFor extends Activity {
     private ArrayList<HashMap<String, ?>> data;
     private  String X = String.valueOf(108.908035);
     private  String Y = String.valueOf(34.238404);
+
     private EditText searchedittext;
     private ImageButton search2Button;
     private String name;
@@ -118,6 +119,20 @@ public class SearchFor extends Activity {
         };
 
         searchfor.setAdapter(baseAdapter);
+        searchfor.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Map<String, Object> itemData1 = (Map<String, Object>) data.get(position);
+                Intent intent = new Intent();
+
+                intent.setClass(SearchFor.this, MapActivity.class);
+                Log.d("BaiduMapDemo", "DATA1 " + itemData1);
+               intent.putExtra("name",itemData1.get("name").toString());
+                intent.putExtra("x",itemData1.get("x").toString());
+                intent.putExtra("y",itemData1.get("y").toString());
+                startActivity(intent);
+            }
+        });
         baseAdapter.notifyDataSetChanged();
 
     }
@@ -158,6 +173,8 @@ public class SearchFor extends Activity {
                         item.put("address", jo.getString("address"));
                         item.put("name", jo.getString("name"));
                         item.put("distance", jo.getString("distance")+"m");
+                        item.put("x",jo.getString("x"));
+                        item.put("y",jo.getString("y"));
                         data.add(item);
 
                     }

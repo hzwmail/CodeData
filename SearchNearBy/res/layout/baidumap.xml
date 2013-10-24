@@ -29,66 +29,59 @@
                 ></ImageButton>
 
     </LinearLayout>
-    <FrameLayout android:layout_width="match_parent"
-                 android:layout_height="wrap_content">
 
-         <LinearLayout android:id="@+id/mapview" android:layout_width="match_parent"
-                       android:layout_height="match_parent"
-                 android:orientation="vertical">
+
+
             <LinearLayout android:id="@+id/mapview" android:layout_width="match_parent"
                       android:layout_height="wrap_content">
-             <RadioGroup
-                     android:id="@+id/radiogroup"
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:gravity="center_vertical"
-                     android:orientation="horizontal">
 
 
-                 <RadioButton android:layout_height="wrap_content"
+
+                 <Button android:layout_height="wrap_content"
                               android:id="@+id/radio1"
                               android:layout_width="wrap_content"
                               android:background="@drawable/radio"
-                              android:text="公交"
+                              android:text="驾车"
                               android:textColor="#000000"
                               android:gravity="center"
                               android:layout_weight="1"
                               android:button="@null"
                          >
-                 </RadioButton>
-                 <RadioButton android:layout_height="wrap_content"
+                 </Button>
+                 <Button android:layout_height="wrap_content"
                               android:id="@+id/radio2"
                               android:layout_width="wrap_content"
                               android:background="@drawable/radio"
                               android:layout_weight="1"
-                              android:text="步行"
+                              android:text="公交"
                               android:textColor="#000000"
                               android:gravity="center"
                               android:button="@null"
                          >
-                 </RadioButton>
-                 <RadioButton android:layout_height="wrap_content"
+                 </Button>
+                 <Button android:layout_height="wrap_content"
                               android:id="@+id/radio3"
                               android:layout_width="wrap_content"
                               android:background="@drawable/radio"
                                android:layout_weight="1"
-                              android:text="驾车"
+                              android:text="步行"
                               android:gravity="center"
                               android:textColor="#000000"
                               android:button="@null"
                          >
-                 </RadioButton>
+                 </Button>
 
-             </RadioGroup>
+
             </LinearLayout>
-        <LinearLayout android:id="@+id/mapview" android:layout_width="match_parent"
-                      android:layout_height="wrap_content">
+
+
+
              <com.baidu.mapapi.map.MapView android:id="@+id/bmapView"
                                            android:layout_width="match_parent"
                                            android:layout_height="match_parent"
 
                      />
-                       </LinearLayout>
-            </LinearLayout>
-</FrameLayout>
+
+
+
 </LinearLayout>

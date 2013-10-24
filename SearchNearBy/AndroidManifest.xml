@@ -52,7 +52,7 @@
     </uses-permission>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
-    <application android:label="@string/app_name" android:icon="@drawable/ic_launcher">
+    <application android:label="@string/app_name" android:icon="@drawable/ic_launcher" android:name=".View.MapApplication">
         <activity android:name=".View.HomePageActivity"
                   android:label="@string/app_name">
             <intent-filter>
